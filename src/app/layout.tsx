@@ -9,8 +9,8 @@ import Footer from "@/components/landing/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "random school",
-  description: "Next.js  random School Management System",
+  title: "Patna Muslim High School ",
+  description: "Official Website for Patna Muslim High School",
 };
 
 export default function rootLayout({

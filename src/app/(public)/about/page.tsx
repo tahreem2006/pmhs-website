@@ -1,6 +1,9 @@
 import SchoolBanner from "@/components/landing/SchoolBanner";
 import React from "react";
 import Image from "next/image";
+export const metadata = {
+    title: "About us | PMHS",
+  };
 const About = () => {
   return (
     <div className="relative min-h-screen   font-sans pb-24">

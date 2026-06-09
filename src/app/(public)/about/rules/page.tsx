@@ -5,7 +5,9 @@ import {
   FaFileLines, // FIX: Changed from FaFileText to FaFileLines
   FaUsers 
 } from "react-icons/fa6";
-
+export const metadata = {
+    title: "Rules & Regulations | PMHS",
+  };
 export default function RulesAndRegulationsPage() {
   return (
     <div className="relative min-h-screen bg-slate-50 font-sans pb-24">

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { TiHeartFullOutline } from "react-icons/ti";
 import { FaUserShield, FaClock, FaFileLines, FaGraduationCap, FaIndianRupeeSign } from "react-icons/fa6";
-
+ 
 const Admission = () => {
   const [colorIndex, setColorIndex] = useState(0);
   const colors = ["bg-red-600", "bg-red-800"];
@@ -148,7 +148,7 @@ const Admission = () => {
         </div>
       </div>
 
-      {/* 3. Supportive Policies Footer Area */}
+ 
       <div className="max-w-7xl mx-auto px-4 mt-10 space-y-4">
         
         {/* Welfare Incentive */}
