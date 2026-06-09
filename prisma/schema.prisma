@@ -1,0 +1,223 @@
+generator client {
+  provider = "prisma-client-js"
+    
+  // output   = "./generated"
+ 
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+model MaintenanceTicket {
+  
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  
+
+  title       String
+  location    String
+ 
+ 
+  
+
+  
+  status      String   @default("Pending") 
+  
+  createdAt   DateTime @default(now())
+  
+  
+}
+model Admin { 
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+   clerkId String?
+  username String  @unique
+} 
+
+model Student { 
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  clerkId    String?
+  email     String?  @unique
+  username  String   @unique
+  name      String
+  surname   String
+  phone     String?  @unique
+  img       String?
+  address   String
+  sex       Usersex
+  
+  createdAt DateTime @default(now())
+
+  classId   String   @db.ObjectId
+  class    Class    @relation(fields: [classId], references: [id])
+
+  gradeId   String   @db.ObjectId
+  grade     Grade    @relation(fields: [gradeId], references: [id])
+
+  // Fixed Many-to-Many for MongoDB
+  teacherIds String[]  @db.ObjectId
+  teachers   Teacher[] @relation(fields: [teacherIds], references: [id])
+
+  attendance Attendance[]
+  results    Result[]
+} 
+
+model Teacher { 
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String?  @unique
+   clerkId String?
+  username  String   @unique
+  name      String
+  surname   String
+  phone     String  @unique
+  img       String?
+  address   String
+  sex       Usersex
+ 
+  createdAt DateTime @default(now())
+
+  // Fixed Many-to-Many for MongoDB
+  subjectIds String[]  @db.ObjectId
+  subjects   Subject[] @relation(fields: [subjectIds], references: [id])
+
+  // Fixed Many-to-Many for MongoDB
+  studentIds String[]  @db.ObjectId
+  students   Student[] @relation(fields: [studentIds], references: [id])
+
+  lessons    Lesson[]
+  classes    Class[]   @relation("ClassSupervisor") // Added relation name for clarity
+} 
+
+model Subject {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String    @unique
+
+  // Fixed Many-to-Many for MongoDB
+  teacherIds String[]  @db.ObjectId
+  teachers   Teacher[] @relation(fields: [teacherIds], references: [id])
+  
+  lessons    Lesson[] 
+  results    Result[]  // Added missing opposite relation
+}
+
+model Class {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  name         String @unique
+  capacity     Int
+
+  supervisorId String?  @db.ObjectId
+  supervisor   Teacher?  @relation("ClassSupervisor", fields: [supervisorId], references: [id])
+ 
+  gradeId      String   @db.ObjectId  // Added missing field
+  grade        Grade    @relation(fields: [gradeId], references: [id]) // Added missing relation
+
+  lessons       Lesson[] 
+  students      Student[]
+  announcements Announcement[]
+  events        Event[]
+}
+
+model Grade {
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  level   String    @unique
+
+  students Student[]
+  classes  Class[]
+}
+
+model Exam {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  day       Day
+  startTime DateTime
+  endTime   DateTime
+
+  lessonId  String   @db.ObjectId
+  lesson    Lesson   @relation(fields: [lessonId], references: [id])
+
+  results   Result[] // Changed from 'result Result' to an array
+}
+
+model Lesson {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  day       Day
+  startTime DateTime
+  endTime   DateTime
+
+  subjectId String   @db.ObjectId
+  subject   Subject  @relation(fields: [subjectId], references: [id])
+
+  classId   String   @db.ObjectId
+  class     Class    @relation(fields: [classId], references: [id])
+
+  teacherId String   @db.ObjectId
+  teacher   Teacher  @relation(fields: [teacherId], references: [id])
+ 
+
+  exams      Exam[]
+  attendance Attendance[]
+}
+
+model Result {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  score     Int
+
+  examId    String   @db.ObjectId
+  exam      Exam     @relation(fields: [examId], references: [id]) // Fixed casing
+
+  subjectId String   @db.ObjectId
+  subject   Subject  @relation(fields: [subjectId], references: [id])
+
+  studentId String   @db.ObjectId
+  student   Student  @relation(fields: [studentId], references: [id]) // Fixed casing
+}
+
+model Attendance {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  date      DateTime 
+  present   Boolean
+
+  studentId String   @db.ObjectId
+  student   Student  @relation(fields: [studentId], references: [id])
+
+  lessonId  String   @db.ObjectId // Fixed typo 'lessontId'
+  lesson    Lesson   @relation(fields: [lessonId], references: [id])
+}
+
+model Event {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  startTime   DateTime 
+  endTime     DateTime 
+
+  classId     String?  @db.ObjectId
+  class       Class?   @relation(fields: [classId], references: [id])
+}
+
+model Announcement {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  date        DateTime 
+
+  classId     String?  @db.ObjectId
+  class       Class?   @relation(fields: [classId], references: [id]) // Fixed typo 'CLass'
+}
+ 
+enum Usersex {
+  MALE
+  FEMALE
+}
+ 
+
+enum Day {
+  MONDAY
+  TUESDAY
+  WEDNESDAY 
+  THURSDAY
+  FRIDAY
+  SATURDAY
+}
+
+// Whenever you (or a teammate) download the code on a new computer, you just run npx prisma generate, and Prisma will recreate all those files instantly.

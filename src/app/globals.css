@@ -1,3 +1,82 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Force Tailwind to compile these Calendar button styles */
+@layer components {
+  .rbc-btn-group button {
+    @apply bg-white text-gray-700 border border-gray-300 px-4 py-1 rounded-md mr-1 cursor-pointer transition-colors !important;
+  }
+  
+  .rbc-btn-group button:hover {
+    @apply bg-gray-100 !important;
+  }
+  
+ 
+  
+  /* Fix for the "Today / Back / Next" text centering */
+  .rbc-toolbar button {
+    @apply inline-flex items-center justify-center !important;
+  }
+}
+.rbc-btn-group:first-child  {
+    display:none !important;
+  }
+
+  .rbc-btn-group:last-child  {
+    font-size:13px !important;
+
+  }
+
+  .rbc-btn-group:last-child  button {
+    background-color:pink!important;
+    
+    margin:2px;
+    border-radius:15px;
+
+    
+  }
+
+    .rbc-row-bg {
+        background-color: aqua!important;
+    }
+    .rbc-time-header{
+        font-size: 10px !important;
+        padding-top:2px !important;
+    }
+    .rbc-allday-cell{
+        display:none !important;
+    }
+    .rbc-day-slot{
+        font-size:10px !important;
+      
+    }
+  
+
+    .rbc-time-gutter.rbc-time-column
+    {
+        font-size: 13px !important;
+        padding-left:2px !important;
+        padding-right:2px !important;
+     
+     
+
+    }
+    .rbc-event{
+        color:black;
+        font-size:10px;
+        padding:0px;
+
+
+    }
+    .rbc-event:nth-child(1){
+        background-color: #FFFFF0;
+        padding:3px;
+        width:50px;
+        color:black;
+        
+    }
+    .rbc-event-label{
+        color:#757575;
+
+    }
