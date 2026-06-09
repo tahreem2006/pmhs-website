@@ -2,26 +2,38 @@
 import { useEffect, useRef, useState } from "react"
 import { FaBell } from "react-icons/fa6"; 
 
-const EventCalender = ({ announcements = [], role }) => {
+// Define what a single announcement looks like
+interface AnnouncementItem {
+  id: string | number;
+  title: string;
+  date: string;
+  description: string;
+}
+
+// Define the props interface for the component
+interface AnnouncementScrollProps {
+  announcements?: AnnouncementItem[]; 
+  role: string | undefined;
+}
+
+const AnnouncementScroll = ({ announcements = [], role }: AnnouncementScrollProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-//duplicating arr
+
+  // Duplicating array for infinite scroll effect
   const displayAnnouncements = [...announcements, ...announcements];
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
-    
     
     if (!scrollContainer || isHovered || announcements.length <= 3) return;
 
     let animationFrameId: number;
     
     const smoothScroll = () => {
-       //half height will scroll to top makin it look like infinite scroll
       const halfHeight = scrollContainer.scrollHeight / 2;
   
       if (scrollContainer.scrollTop >= halfHeight) {
-        // The Teleport: Snaps back to index 0 instantly and invisibly!
         scrollContainer.scrollTop = 0;
       } else {
         scrollContainer.scrollTop += 0.5; 
@@ -56,15 +68,12 @@ const EventCalender = ({ announcements = [], role }) => {
           onMouseLeave={() => setIsHovered(false)}
           className="flex flex-col h-full overflow-y-scroll [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-       
           {displayAnnouncements.map((anc, idx) => (
             <div 
-              
               key={`${anc.id}-${idx}`}
               className="group relative p-2 hover:bg-white transition-colors duration-300 cursor-pointer"
             >
               <div className="p-4 rounded-xl border group-hover:shadow-md group-hover:border-amber-400 border-orange-950/15 bg-white">
-               
                 <div className="flex justify-between items-start gap-4 mb-2">
                   <h2 className="text-base font-bold text-slate-800 group-hover:text-blue-700 transition-colors leading-tight">
                     {anc.title}
@@ -81,9 +90,8 @@ const EventCalender = ({ announcements = [], role }) => {
           ))}
         </div>
       </div>
-
     </div>
   )
 }
 
-export default EventCalender;
+export default AnnouncementScroll;

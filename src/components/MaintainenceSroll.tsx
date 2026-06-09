@@ -19,7 +19,7 @@ const FacilitiesTracker = ({ data }: { data:any }) => {
      
       <div className="flex overflow-scroll flex-col gap-3">
         
-        {data.map((task) => (
+        {data.map((task:any) => (
           <div 
             key={task.id} 
             className="group flex  odd:border-t-purple-500   border-t-2 even:border-t-yellow-500 items-center justify-between p-3 rounded-lg border border-transparent  hover:shadow-sm transition-all duration-200 cursor-pointer"

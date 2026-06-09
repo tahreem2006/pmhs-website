@@ -96,10 +96,9 @@ import { role } from "@/lib/data";
  const exampage = async ({ searchParams }: { searchParams: { [key: string]: string | undefined } }) => {
  
 
- 
-
-  const {userId,sessionClaims } =await  auth();
+  const { sessionClaims ,userId} = await auth();
   const role = (sessionClaims?.metadata as { role?: string })?.role;
+ 
  const currentId=userId;
   const { page, ...queryParam } = searchParams;
   const p = page ? parseInt(page) : 1;

@@ -8,15 +8,14 @@ import prisma from "@/lib/prisma";
 import { items_per_page } from "@/lib/setting";
 import { Prisma } from "@prisma/client";
 import { auth } from "@clerk/nextjs/server";
-
- type LessonList = {
-  id: number;
+import { type LessonSchema } from "@/lib/formValidationSchema";
+type LessonList = {
+  id: string;
   day: string; 
   subject: { name: string };
   class: { name: string };
   teacher: { name: string; surname: string };
 };
-
  const getColumns = (role: string | undefined) => [
   {
     header: "Subject",
@@ -45,7 +44,7 @@ import { auth } from "@clerk/nextjs/server";
   }] : [])
 ];
 
- const renderRow = (item: LessonList, role: string | undefined) => (
+ const renderRow = (item: LessonList, role: string | undefined,allClasses:any,allSubject:any,allTeacher:any) => (
   <tr className="border-t-2 rounded-xl odd:border-t-pink-400 even:border-t-yellow-400">
     <td className="flex my-4 gap-3 justify-start px-2 items-center" >
       <div className="flex flex-col">
@@ -65,8 +64,8 @@ import { auth } from "@clerk/nextjs/server";
       <div className="flex items-center gap-2">
         {role === "admin" && (
           <>
-             <FormModal table="lessons" type="edit" id={item.id} />
-            <FormModal table="lessons" type="delete" id={item.id} />
+             <FormModal table="lesson" type="edit" id={item.id} data={item} relatedData={{classes:allClasses,teachers:allTeacher,subjects:allSubject}} />
+            <FormModal table="lesson" type="delete" id={item.id} />
           </>
         )}  
       </div>
@@ -120,7 +119,7 @@ import { auth } from "@clerk/nextjs/server";
 
   }
 
-   const [data, count] = await prisma.$transaction([
+   const [data, count,allClasses,allSubject,allTeacher] = await prisma.$transaction([
     prisma.lesson.findMany({
       where: query,
       include: {
@@ -131,7 +130,11 @@ import { auth } from "@clerk/nextjs/server";
       take: items_per_page,
       skip: items_per_page * (p - 1)
     }),
-    prisma.lesson.count({ where: query })
+    prisma.lesson.count({ where: query }),
+    prisma.class.findMany({select:{ id:true,name:true }}),
+    prisma.subject.findMany({select:{ id:true,name:true }}),
+    prisma.teacher.findMany({select:{ id:true,name:true,surname:true }}),
+    
   ]);
 
    const columns = getColumns(role);
@@ -150,14 +153,14 @@ import { auth } from "@clerk/nextjs/server";
               <Image src="/sort.png" alt="" width={16} height={16} />
             </button>
             {role === "admin" && (
-              <FormModal table="lessons" type="create" />
+              <FormModal table="lesson" type="create" relatedData={{classes:allClasses,teachers:allTeacher,subjects:allSubject}} />
             )}
           </div>
         </div>
       </div>
 
        <div>
-        <Table column={columns} renderRow={(item) => renderRow(item as unknown as LessonList, role)} data={data} />
+        <Table column={columns} renderRow={(item) => renderRow(item as unknown as LessonList, role,allClasses,allSubject,allTeacher)} data={data} />
       </div>
 
        <div>

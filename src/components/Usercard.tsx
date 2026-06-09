@@ -50,21 +50,25 @@ const cardConfig = {
   }
 };
 
-const Usercard = async ({ type }) => {
+const Usercard = async ({ type }:{ type: "admin" | "teacher" | "student" }) => {
   const modelMap = {
     admin: prisma.admin,
     teacher: prisma.teacher,
     student: prisma.student,
   };
   
-  const data = await modelMap[type].count();
+  const data = type === "admin" 
+  ? await prisma.admin.count()
+  : type === "teacher"
+  ? await prisma.teacher.count()
+  : await prisma.student.count();
   const config = cardConfig[type];
 
   return (
     <div className={`group relative flex flex-col p-6 flex-1 rounded-2xl border ${config.styles.border} ${config.styles.bg} shadow-sm hover:shadow-xl ${config.styles.glow} transition-all duration-300 ease-out cursor-pointer overflow-hidden`}>
    
       <div className="flex items-start justify-between z-10">
-           {/* Animated Icon Box */}
+     
         <div className={`p-3 rounded-xl transition-all duration-300 ease-out ${config.styles.iconBox} group-hover:scale-110 group-hover:-rotate-3`}>
           {config.icon}
         </div>

@@ -9,7 +9,7 @@ export type Column = {
     className?: string;  
   };
  
-const Table = ({column ,renderRow,data} :{column:Column; renderRow:(item:any) =>React.ReactNode;
+const Table = ({column ,renderRow,data} :{column:Column[]; renderRow:(item:any) =>React.ReactNode;
 data:any[]}
     
 

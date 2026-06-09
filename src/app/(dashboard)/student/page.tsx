@@ -1,7 +1,7 @@
  
 import Usercard from "@/components/Usercard";
 import CountChart from "@/components/CountChart";
-import Attendence from "@/components/Attendence";
+ 
 import FinanceChart from "@/components/FinanceChart";
 import Calender from "@/components/BigCalenderContainer";
  import { auth } from "@clerk/nextjs/server";

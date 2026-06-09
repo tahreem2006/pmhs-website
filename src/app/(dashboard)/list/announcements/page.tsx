@@ -1,13 +1,14 @@
 import Pagination from "@/components/Pagation";
 import Table from "@/components/Table";
 import TableSearch from "@/components/Searchbar";
-import {role}  from "@/lib/utils"
+
 import Image from "next/image";
 import Link from "next/link";
 import FormModal from "@/components/FormModal";
 import { Prisma, type Class, type Announcement } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { items_per_page } from "@/lib/setting";
+import { auth } from "@clerk/nextjs/server";
 
 
 type AnnouncementLists = Announcement & { class: Class }
@@ -65,7 +66,9 @@ const renderRow = (item: AnnouncementLists, role: string | undefined,allClasses:
  
 const exampage = async ({ searchParams }: { searchParams: { [key: string]: string | undefined } }) => {
   
-   
+  const { sessionClaims } = await auth();
+  const role = (sessionClaims?.metadata as { role?: string })?.role;
+ 
   
 
   const { page, ...queryParam } = searchParams;

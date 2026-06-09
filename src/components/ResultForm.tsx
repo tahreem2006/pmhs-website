@@ -26,7 +26,7 @@
          control, 
          formState: { errors ,isSubmitting},
        } = useForm<ResultSchema>({
-         resolver: zodResolver(resultSchema)  ,
+       
          defaultValues: data,
        });
          const {exams,subjects,students}=relatedData

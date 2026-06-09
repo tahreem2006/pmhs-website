@@ -5,7 +5,7 @@ import { fromJSON } from "postcss";
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
  
 import dynamic from "next/dynamic";
-import { deleteClass, deleteExam, deleteNotice, deleteResult, deleteStudent, deleteSubject, deleteTeacher } from "@/lib/actions";
+import { deleteClass, deleteExam, deleteLesson, deleteNotice, deleteResult, deleteStudent, deleteSubject, deleteTeacher } from "@/lib/actions";
 import { useFormState } from "react-dom";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -41,7 +41,9 @@ const ResultForm = dynamic(() => import("./ResultForm"), {
 const ExamForm = dynamic(() => import("./ExamForm"), {
   loading: () => <h1>Loading...</h1>,
 });
-
+const LessonForm = dynamic(() => import("./LessonForm"), {
+  loading: () => <h1>Loading...</h1>,
+});
 const deleteAction={
   subject:deleteSubject,
    teacher:deleteTeacher,
@@ -49,24 +51,11 @@ const deleteAction={
    classes:deleteClass,
    result:deleteResult,
    announcements:deleteNotice,
-   exam:deleteExam
+   exam:deleteExam,
+   lesson:deleteLesson
    
 }
-// const ResultForm = dynamic(() => import("@/components/ResultForm"), {
-//   loading: () => <h1>Loading...</h1>,
-// });
-// const ExamForm = dynamic(() => import("@/components/ExamForm"), {
-//   loading: () => <h1>Loading...</h1>,
-// });
-// const EventForm = dynamic(() => import("@/components/EventForm"), {
-//   loading: () => <h1>Loading...</h1>,
-// });
-// const ClassForm = dynamic(() => import("@/components/ClassForm"), {
-//   loading: () => <h1>Loading...</h1>,
-// });
-// const AnnouncementForm = dynamic(() => import("@/components/AnnouncementForm"), {
-//   loading: () => <h1>Loading...</h1>,
-// })
+ 
 const forms:{[key: string]: (setOpen: Dispatch<SetStateAction<boolean>>, type: "create" | "edit", data?: any, relatedData?: any) => JSX.Element;}={
 
   teacher:(setOpen,type,data,relatedData) =><TeacherForm setOpen={setOpen} type={type} data={data} relatedData={relatedData} />,
@@ -76,11 +65,12 @@ const forms:{[key: string]: (setOpen: Dispatch<SetStateAction<boolean>>, type: "
     result:(setOpen,type,data,relatedData) =><ResultForm setOpen={setOpen} type={type} data={data}  relatedData={relatedData}/>,
     announcements:(setOpen,type,data,relatedData) =><NoticesForm setOpen={setOpen} type={type} data={data}  relatedData={relatedData}/>,
     exam:(setOpen,type,data,relatedData) =><ExamForm setOpen={setOpen} type={type} data={data}  relatedData={relatedData}/>,
+    lesson:(setOpen,type,data,relatedData) =><LessonForm setOpen={setOpen} type={type} data={data}  relatedData={relatedData}/>,
 
 }
 
 const FormModal = ({table,type,data,id,relatedData}:{
-    table:"student"|"teacher" | "subject"| "result" | "exam" | "events" | "classes" | "announcements";
+    table:"student"|"teacher" | "subject"| "result" | "exam"  | "classes" | "announcements" |"lesson";
     type:"delete" |"edit" | "create";
     data?:any;
     id?:string;

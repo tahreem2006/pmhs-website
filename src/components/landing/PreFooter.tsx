@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const Prefooter = () => {
     const [copiedItem, setCopiedItem] = useState("");
-    const copyToClipboard=(text,itemName)=>{
+    const copyToClipboard=(text:string,itemName:string)=>{
         if(navigator.clipboard)
         {
             navigator.clipboard.writeText(text);

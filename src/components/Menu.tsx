@@ -17,6 +17,11 @@ const menuitems = [
         label: "Teachers",
         href: "/list/teacher",
         visible: ["admin", "teacher"]
+      },{
+        icon: "/lesson.png",
+        label: "Lessons",
+        href: "/list/lesson",
+        visible: ["admin", "teacher","student"]
       },
       {
         icon: "/student.png",

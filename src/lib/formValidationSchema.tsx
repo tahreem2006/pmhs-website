@@ -120,3 +120,24 @@ export const examSchema = z.object({
 //  refine is specifically used here for cross-field validation—meaning we need to look at two separate inputs at the same time to decide if the form is valid.
 //  If you didn't include path: ["endTime"], React Hook Form wouldn't know which input field caused the problem. By adding the path, you are explicitly telling Zod: "If this validation fails, attach the error message to the endTime input."
 export  type ExamSchema=z.infer<typeof examSchema>;
+
+export const lessonSchema = z.object({
+   id:z.string().optional(),
+   name:z.string().min(1, { message: 'Lesson name  is required' }) ,
+    
+   day: z.enum(["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"], {
+     message: 'Please select a day for lesson'
+    }),
+   startTime: z.coerce.date({ message: 'StartTime of lesson is required' }) ,
+   endTime: z.coerce.date({ message: 'Endtime of lesson is required' }) ,
+   classId: z.string(),
+   subjectId: z.string(),
+   teacherId: z.string(),
+     
+   
+ }).refine((data) => data.endTime > data.startTime, {
+   message: "End time cannot be before the start time",
+   path: ["endTime"], 
+ });
+
+ export  type LessonSchema=z.infer<typeof lessonSchema>;

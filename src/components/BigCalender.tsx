@@ -1,7 +1,7 @@
  "use client";
 import Image from "next/image";
 import React, { useState } from 'react'; 
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import { Calendar, dateFnsLocalizer,View } from 'react-big-calendar';
 import { format, parse, startOfWeek, getDay } from 'date-fns';
 import { enUS } from 'date-fns/locale'; //  Correct syntax
 
@@ -30,7 +30,7 @@ const PASTEL_COLORS = [
     '#D4E157', // Light Lime
     '#81C784', // Soft Green
   ];
-  const getColorForString = (str) => {
+  const getColorForString = (str: string) => {
     // Safety check just in case the string is missing
     if (!str) return PASTEL_COLORS[0]; 
   
@@ -46,7 +46,7 @@ const PASTEL_COLORS = [
     
     return PASTEL_COLORS[sum % PASTEL_COLORS.length];
   };
-const eventStyleGetter = (event) => {
+const eventStyleGetter = (event:any) => {
     const backgroundColor = getColorForString(event.title);
     
 
@@ -68,7 +68,7 @@ const eventStyleGetter = (event) => {
 
 const MyCalendar = ({data}:{data:{title:string,start:Date,end:Date}[]}) => {
     const [currentDate, setCurrentDate] = useState(new Date());
-  const [currentView, setCurrentView] = useState('week'); // Left it on Week view so you can see the colors!
+  const [currentView, setCurrentView] = useState<View>('week'); // Left it on Week view so you can see the colors!
   
   const minTime = new Date(2026, 0, 1, 7, 0); 
   const maxTime = new Date(2026, 0, 1, 23, 0);

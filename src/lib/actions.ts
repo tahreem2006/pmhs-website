@@ -1,7 +1,7 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import type { ClassSchema, ExamSchema, NoticeSchema, ResultSchema, Studentschema, SubjectSchema,Teacherschema } from "./formValidationSchema"
+import type { ClassSchema, ExamSchema, LessonSchema, NoticeSchema, ResultSchema, Studentschema, SubjectSchema,Teacherschema } from "./formValidationSchema"
 import prisma from "./prisma"
 import { clerkClient } from "@clerk/nextjs/server"
 type CurrentState={success:boolean,error:boolean | string}
@@ -744,4 +744,94 @@ export const updateSubject=async ( currentState: CurrentState, data:SubjectSchem
                                                                        }
                                                                     }
                                                                 
-                                                 
+                                                                    export const createLesson=async ( currentState: CurrentState, data:LessonSchema)=>
+                                                                        {
+                                                                           try{
+                                                                           
+                                                            
+                                                                            
+                                                                           
+                                                                            await prisma.lesson.create({
+                                                                                
+                                                                                data:{
+                                                                                  
+                                                                                        name:data.name,  
+                                                                                        day:data.day,  
+                                                                                        startTime:data.startTime,
+                                                                                        endTime:data.endTime,
+                                                                                        subjectId:data.subjectId,  
+                                                                                        classId:data.classId,  
+                                                                                        teacherId:data.teacherId,  
+                                                                                    
+                                                                                
+                                                                          
+                                                                                }
+                                                                            })
+                                                                        
+                                                                            
+                                                                            return {success:true,error:false}
+                                                                           }catch(err)
+                                                                           {
+                                                                            console.log(err)
+                                                                            return {success:false,error:true} 
+                                                                           }
+                                                                        }
+                                                                        export const updateLesson=async ( currentState: CurrentState, data: LessonSchema)=>
+                                                                            {
+                                                                               try{
+                                                                                 
+                                                                                await prisma.lesson.update({
+                                                                                    
+                                                                                    where:{
+                                                                                       id:data.id
+                                                                                    },
+                                                                                    data:{
+                                                                                        name:data.name,  
+                                                                                        day:data.day,  
+                                                                                        startTime:data.startTime,
+                                                                                        endTime:data.endTime,
+                                                                                        subjectId:data.subjectId,  
+                                                                                        classId:data.classId,  
+                                                                                        teacherId:data.teacherId,  
+                                                                                    }
+                                                                                
+                                                                        
+                                                                                })
+                                                                               
+                                                                               
+                                                                                return {success:true,error:false}
+                                                                               }catch(err)
+                                                                               {
+                                                                                console.log(err)
+                                                                                return {success:false,error:true} 
+                                                                               }
+                                                                            }
+                                                                        
+                                                                            export const deleteLesson=async ( currentState: CurrentState,formData: FormData)=>
+                                                                                {
+                                                                                    const rawId = formData.get("id") ;
+                                                                                    if (!rawId || typeof rawId !== "string") {
+                                                                                        return { success: false, error: "Invalid or missing ID." };
+                                                                                    }
+                                                                                    const id = rawId;
+                                                                                   try{
+                                                                                    await prisma.lesson.delete({
+                                                                                        
+                                                                                        where:{
+                                                                                           id:id
+                                                                                        },
+                                                                                        
+                                                                                    
+                                                                            
+                                                                                    })
+                                                                                   
+                                                                                  
+                                                                                    return {success:true,error:false}
+                                                                                   }catch(err)
+                                                                                   {
+                                                                                    console.log(err)
+                                                                                    return {success:false,error:true} 
+                                                                                   }
+                                                                                }
+                                                                            
+                                                             

@@ -1,6 +1,6 @@
 import Usercard from "@/components/Usercard";
 import Capacitybox from "@/components/Capacitybox";
-import Attendence from "@/components/Attendence";
+ 
 import FinanceChart from "@/components/FinanceChart";
  
 import Performancebox from "@/components/Performancebox";

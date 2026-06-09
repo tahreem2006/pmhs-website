@@ -8,7 +8,7 @@ import { Prisma } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { items_per_page } from "@/lib/setting";
 import { auth } from "@clerk/nextjs/server";
-import { currentId } from "@/lib/utils";
+ 
 
  type ResultList = {
   id: string;
