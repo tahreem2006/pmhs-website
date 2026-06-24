@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import FormModal from './FormModal';
+import FormModal from '../FormModal';
  
  
 
@@ -45,15 +45,7 @@ const FacilitiesTracker = ({ data,role }: { data:any,role:string| undefined }) =
           </div>
         ))}
 
-      
-        {/* {data.length === 0 && (
-          <div className="flex flex-col items-center justify-center py-6 text-center">
-            <span className="text-2xl mb-2">✅</span>
-            <p className="text-sm font-medium text-slate-500">All facilities are operational.</p>
-            <p className="text-xs text-slate-400">No open maintenance tickets.</p>
-          </div>
-        )} */}
-
+       
       </div>
 
  

@@ -3,12 +3,12 @@
  import { zodResolver } from '@hookform/resolvers/zod';
  import { string, z } from 'zod'; // or 'zod/v4'
  import {  toast } from 'react-toastify';
- import InputField from './InputField';
+ import InputField from '../InputField';
  import Image from "next/image"
  import Select from 'react-select';
  import { Controller, FieldError } from 'react-hook-form';
- import {examSchema, resultSchema,ResultSchema, type ExamSchema } from '@/lib/formValidationSchema';
- import { createExam, updateExam,deleteExam } from '@/lib/actions';
+ import {lessonSchema,   type LessonSchema } from '@/lib/formValidationSchema';
+ import { createLesson, updateLesson,deleteLesson } from '@/lib/actions';
  import { useForm } from 'react-hook-form';
  import { useFormState } from "react-dom";
  import { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
@@ -19,17 +19,17 @@
  ) => {
     const [isClearable, setIsClearable] = useState(true);
     const [isSearchable, setIsSearchable] = useState(true);
-     const actionToTake = type === "create" ? createExam:updateExam;
+     const actionToTake = type === "create" ? createLesson:updateLesson;
      const {
          register,
          handleSubmit,
          control, 
          formState: { errors ,isSubmitting},
-       } = useForm<ExamSchema>({
-       
+       } = useForm<LessonSchema>({
+        
          defaultValues: data,
        });
-         const {lessons}=relatedData
+         const {subjects,teachers,classes}=relatedData
       const [state, formAction] = useFormState(actionToTake, { success: false, error: false });
          const router=useRouter();
  
@@ -44,20 +44,20 @@
         );
        useEffect(()=>{
          if(state.success){
-                 toast(`Exam has been ${type==="create"?"created":"updated"}`);
+                 toast(`Lesson has been ${type==="create"?"created":"updated"}`);
                  router.refresh();
                  setOpen(false)
          }
        },[state])
    return (
      <form className='flex flex-col gap-2'  onSubmit={onSubmit}  >
-       <h1 className='text font-semibold'>{type==="create"?"Create a new Exam":"Update the Exam"}</h1>
+       <h1 className='text font-semibold'>{type==="create"?"Create a new Lesson":"Update the Lesson"}</h1>
  
        {data && <input type="hidden" {...register("id")} defaultValue={data.id} />}
        <div className=' w-full flex flex-wrap gap-6  '> 
  
-      <InputField label="title" name="title" defaultValue={data?.title}  register={register} error={errors.title}  />
-      
+      <InputField label="name" name="name" defaultValue={data?.name}  register={register} error={errors.name}  />
+       
  
 
   
@@ -103,27 +103,70 @@
 <div className='flex flex-col gap-1 flex-1 min-w-[200px]'>
           <label className='text-sm text-gray-400'>Lesson</label>
           <Controller
-            name="lessonId"
+            name="subjectId"
             control={control}
             render={({ field }) => (
               <Select
                 {...field}
-                options={lessons.map((lesson: any) => ({ value: lesson.id, label: `${lesson.subject.name} - ${lesson.class.name}` }))}
-                value={lessons.map((lesson: any) => ({ value: lesson.id, label: `${lesson.subject.name} - ${lesson.class.name}` })).find((opt: any) => opt.value === field.value) || null}
+                options={subjects.map((subject: any) => ({ value:subject.id, label: subject.name}))}
+                value={subjects.map((subject: any) => ({ value:subject.id, label:subject.name })).find((opt: any) => opt.value === field.value) || null}
                 onChange={(option: any) => field.onChange(option ? option.value : "")}
                 isSearchable={true}
                 isClearable={true}
-                placeholder="Select a lesson..."
+                placeholder="Select a subject..."
                 className="text-sm"
               />
             )}
           />
-          {errors.lessonId?.message && (
-            <p className='text-sm text-red-500'>{errors.lessonId?.message.toString()}</p>
+          {errors.subjectId?.message && (
+            <p className='text-sm text-red-500'>{errors.subjectId?.message.toString()}</p>
           )}
         </div>
   
- 
+        <div className='flex flex-col gap-1 flex-1 min-w-[200px]'>
+  <label className='text-sm text-gray-400'>Teacher</label>
+  <Controller
+    name="teacherId"
+    control={control}
+    render={({ field }) => (
+      <Select
+        {...field}
+        options={teachers.map((teacher: any) => ({ value: teacher.id, label: `${teacher.name} ${teacher.surname}` }))}
+        value={teachers.map((teacher: any) => ({ value: teacher.id, label: `${teacher.name} ${teacher.surname}` })).find((opt: any) => opt.value === field.value) || null}
+        onChange={(option: any) => field.onChange(option ? option.value : "")}
+        isSearchable={true}
+        isClearable={true}
+        placeholder="Select a teacher..."
+        className="text-sm"
+      />
+    )}
+  />
+  {errors.teacherId?.message && (
+    <p className='text-sm text-red-500'>{errors.teacherId?.message.toString()}</p>
+  )}
+</div>
+<div className='flex flex-col gap-1 flex-1 min-w-[200px]'>
+  <label className='text-sm text-gray-400'>Class</label>
+  <Controller
+    name="classId"
+    control={control}
+    render={({ field }) => (
+      <Select
+        {...field}
+        options={classes.map((classItem: any) => ({ value: classItem.id, label: classItem.name }))}
+        value={classes.map((classItem: any) => ({ value: classItem.id, label: classItem.name })).find((opt: any) => opt.value === field.value) || null}
+        onChange={(option: any) => field.onChange(option ? option.value : "")}
+        isSearchable={true}
+        isClearable={true}
+        placeholder="Select a class..."
+        className="text-sm"
+      />
+    )}
+  />
+  {errors.classId?.message && (
+    <p className='text-sm text-red-500'>{errors.classId?.message.toString()}</p>
+  )}
+</div>
       
        </div>
        

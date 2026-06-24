@@ -1,40 +1,44 @@
- 
-import { UserButton } from "@clerk/nextjs"
-import { currentUser } from "@clerk/nextjs/server"
-import Image from "next/image"
+import { SignOutButton } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
+import Image from "next/image";
 
+const Navbar = async () => {
+  const user = await currentUser();
+  const role = user?.publicMetadata?.role as string;
+  
+  const fullName = user?.firstName && user?.lastName 
+    ? `${user.firstName} ${user.lastName}`
+    : user?.username || "Student";
 
-const navbar = async() => {
-
-  const user=await currentUser();
-  const role=user?.publicMetadata?.role as string;
   return (
-    <div className="flex items-center justify-between p-4 ">
-        <div className="hidden md:flex bg-white p-2 gap-1  border rounded-full   ">
-            <Image src="/search.png" alt=""  width={20} height={20}/> 
-            <input type="text" className="border-none outline-none w-[60%]" placeholder="Search..." />
+    <div className="flex items-center justify-end mr-5 gap-2 p-4">
+        
+     
+        <div className="flex flex-col text-right">
+          <span className="font-medium text-slate-800 leading-tight">{fullName}</span>  
+          <span className="text-gray-500 text-xs capitalize">{role}</span>  
         </div>
 
-      <div className="flex gap-7 items-center  justify-end w-full">
-        <div>
-        <Image src="/message.png" alt=""  width={25} height={25}/> 
+        
+        <div className="w-10 h-10 rounded-full overflow-hidden shadow-sm border border-slate-200 shrink-0">
+           <Image
+            src={user?.imageUrl || "/noavatar.jpg"} 
+            alt="User Avatar" 
+            className="w-full h-full object-cover" 
+            width={40} 
+            height={40} 
+          />
         </div>
-        <div className="relative ">
-        <Image src="/announcement.png" alt=""  width={25} height={25}/> 
-        <div className="absolute rounded-full w-5 h-5 -top-3 -right-4 cursor-pointer flex justify-center items-center text-white text-xs bg-purple-500  ">1</div>
-        </div>
-        <div className="flex flex-col ">
-         <span className="">Joe dnoe</span>  
-         <span className="text-gray-500 bg-green-50    text-right ">{role}</span>  
-       
-        </div>
-        <div  >
-        {/* <Image src="/avatar.png" alt="" className="rounded-full" width={40} height={40}/> */}
-         </div>  
-        <UserButton/>
-      </div>
+
+      
+        <SignOutButton>
+          <button className="bg-red-50 mx-2 text-red-600 hover:bg-red-100 p-2 rounded-xl transition-colors shrink-0 flex items-center justify-center">
+           <Image src="/logout.png" alt="Logout" width={20} height={20} /> 
+          </button>
+        </SignOutButton>
+
     </div>
-  )
+  );
 }
 
-export default navbar
+export default Navbar;

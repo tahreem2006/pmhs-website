@@ -1,8 +1,9 @@
 import React from 'react'
 import prisma from '@/lib/prisma'
 import BigCalender from "./BigCalender"
+import { currentUser } from '@clerk/nextjs/server' // 1. IMPORT CLERK CURRENT USER
 
-// 1. Move helper maps outside the component so they don't recreate on every render
+// Move helper maps outside the component so they don't recreate on every render
 const dayOfWeekMap: Record<string, number> = {
   SUNDAY: 0,
   MONDAY: 1,
@@ -15,26 +16,40 @@ const dayOfWeekMap: Record<string, number> = {
 
 const BigCalenderContainer = async ({ type, id }: { type: "teacherId" | "classId", id: string }) => {
 
-  // 2. Fetch raw data from the database
+  // 2. Fetch the current logged-in Clerk User
+  const user = await currentUser();
+
+  // 3. Build a safe query condition that bypasses the MongoDB ID error
+  let queryCondition = {};
+
+  if (type === "teacherId") {
+    // Look up the lessons through the Teacher's username instead of the raw Clerk ID!
+    queryCondition = {
+      teacher: {
+        username: user?.username || ""
+      }
+    };
+  } else {
+    // If it's a classId, query normally
+    queryCondition = { classId: id };
+  }
+
+  // 4. Fetch raw data from the database using our safe condition
   const rawData = await prisma.lesson.findMany({
-    where: {
-      // ✅ FIXED: Parsed id to an integer for classId since your DB uses number IDs
-      ...(type === "teacherId" ? { teacherId: id } : { classId:id })
-    },
+    where: queryCondition,
     include: {
       subject: { select: { name: true } }
     }
   })
 
   const today = new Date();
-  const currentWeekDay = today.getDay(); // 0 = Sunday, 1 = Monday, etc.
+  const currentWeekDay = today.getDay(); 
 
-  // 3. Clean, flat mapping of your array directly inline
+  // Clean, flat mapping of your array directly inline
   const data = rawData.map((lesson: any) => {
     const targetDayNumber = dayOfWeekMap[lesson.day] ?? 1;
     const diff = targetDayNumber - currentWeekDay;
 
-    // Adjust dates so they appear correctly on the current week's grid
     const adjustedStart = new Date(lesson.startTime);
     adjustedStart.setFullYear(today.getFullYear(), today.getMonth(), today.getDate() + diff);
 
@@ -48,7 +63,6 @@ const BigCalenderContainer = async ({ type, id }: { type: "teacherId" | "classId
     };
   });
 
-  // 4. ✅ FIXED: The return statement is now at the root level of the component!
   return (
     <div>
       <BigCalender data={data} />

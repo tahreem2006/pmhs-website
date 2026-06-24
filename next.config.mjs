@@ -5,6 +5,8 @@ const nextConfig = {
             { hostname: "images.pexels.com" },
             { hostname: "media.istockphoto.com" },
             { hostname: "res.cloudinary.com" },
+           
+        {hostname: 'img.clerk.com'}
         ],
     },  
     eslint: {

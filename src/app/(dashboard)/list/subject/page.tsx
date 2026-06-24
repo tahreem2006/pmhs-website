@@ -31,7 +31,7 @@ const renderRow = (item: SubjectList, role: string | undefined, allTeachers: any
   <tr key={item.id} className="border-t-2 rounded-xl odd:border-t-pink-400 even:border-t-yellow-400">
     <td className="flex flex-col my-4 px-2 justify-start">
       <h3 className="font-semibold">{item.name}</h3>
-      <h6 className="text-sm text-gray-500">{item.id}</h6>
+    
     </td>
     <td className="hidden md:table-cell">
       {item.teachers && item.teachers.length > 0

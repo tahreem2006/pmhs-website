@@ -1,5 +1,5 @@
  
-import Usercard from "@/components/Usercard";
+import Usercard from "@/components/dashboard/Usercard";
 import CountChart from "@/components/CountChart";
  
 import FinanceChart from "@/components/FinanceChart";

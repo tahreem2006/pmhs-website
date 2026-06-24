@@ -1,4 +1,4 @@
-import Usercard from "@/components/Usercard";
+import Usercard from "@/components/dashboard/Usercard";
 import Capacitybox from "@/components/Capacitybox";
  
 import FinanceChart from "@/components/FinanceChart";

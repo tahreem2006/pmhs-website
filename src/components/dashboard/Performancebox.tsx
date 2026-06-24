@@ -61,7 +61,7 @@ const Performance =async () => {
     <div  className="flex flex-col gap-8  ">
           <div className='flex justify-between'>
         <h1 className='text-lg'>Class-wise Performance</h1>
-        <Image src="/moreDark.png" alt="" width={30} height={30} />
+       
         </div>
 
 

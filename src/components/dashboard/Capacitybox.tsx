@@ -8,7 +8,7 @@ import prisma from '@/lib/prisma';
  
  
 
-        <Image src="/moreDark.png" alt="" width={20} height={20} />
+      
 
 
 const Capacitybox = async() => {
@@ -36,7 +36,7 @@ const Capacitybox = async() => {
         <div className='flex justify-between gap-2 px-2 '>
             <h1 className='text-lg'>Real-time Seat Allocation</h1>
 
-    <Image src="/moreDark.png" alt="" width={32} height={32} />
+   
         </div>
 
         

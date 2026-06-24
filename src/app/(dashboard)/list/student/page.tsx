@@ -50,12 +50,12 @@ type StudentList = Student & { class: Class } & { teachers: Teacher[] };
        
       <div className="flex flex-col">
         <h3 className="font-semibold">{item.name}</h3>
-        <h6 className="text-sm text-gray-500">{item.class?.name || "N/A"}</h6>
+        <h6 className="text-sm text-gray-500"> {item.username}</h6>
       </div>
     </td>
 
     <td className="md:table-cell hidden">
-      {item.id}
+      {item.username}
     </td>
     <td className=" ">
       {item.phone}

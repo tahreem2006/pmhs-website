@@ -21,30 +21,30 @@ const TeacherForm=dynamic(()=>import("@/components/TeacherForm"),{
 
       loading:()=><h1>Loading...</h1>
 });
-const StudentForm=dynamic(()=>import("./StudentForm"),{
+const StudentForm=dynamic(()=>import("./forms/StudentForm"),{
 
   loading:()=><h1>Loading...</h1>
 });
-const ClassesForm=dynamic(()=>import("./ClassesForm"),{
+const ClassesForm=dynamic(()=>import("./forms/ClassesForm"),{
 
   loading:()=><h1>Loading...</h1>
 });
-const SubjectForm = dynamic(() => import("./SubjectForm"), {
+const SubjectForm = dynamic(() => import("./forms/SubjectForm"), {
   loading: () => <h1>Loading...</h1>,
 });
-const NoticesForm = dynamic(() => import("./NoticesForm"), {
+const NoticesForm = dynamic(() => import("./forms/NoticesForm"), {
   loading: () => <h1>Loading...</h1>,
 });
-const ResultForm = dynamic(() => import("./ResultForm"), {
+const ResultForm = dynamic(() => import("./forms/ResultForm"), {
   loading: () => <h1>Loading...</h1>,
 });
-const ExamForm = dynamic(() => import("./ExamForm"), {
+const ExamForm = dynamic(() => import("./forms/ExamForm"), {
   loading: () => <h1>Loading...</h1>,
 });
-const LessonForm = dynamic(() => import("./LessonForm"), {
+const LessonForm = dynamic(() => import("./forms/LessonForm"), {
   loading: () => <h1>Loading...</h1>,
 });
-const MaintenanceForm = dynamic(() => import("./MaintenanceForm"), {
+const MaintenanceForm = dynamic(() => import("./forms/MaintenanceForm"), {
   loading: () => <h1>Loading...</h1>,
 });
 const deleteAction={

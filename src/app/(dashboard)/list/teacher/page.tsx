@@ -17,11 +17,7 @@ type TeacherList = Teacher & { subjects: Subject[] } & { classes: Class[] };
     header: "Info",
     accessor: "info",
   },
-  {
-    header: "Teacher ID",
-    accessor: "teacherId",
-    className: "hidden md:table-cell",
-  },
+   
   {
     header: "Subjects",
     accessor: "subjects",
@@ -66,7 +62,7 @@ type TeacherList = Teacher & { subjects: Subject[] } & { classes: Class[] };
         <p className="text-xs text-gray-500">{item?.email}</p>
       </div>
     </td>
-    <td className="hidden md:table-cell">{item.id}</td>
+ 
     <td className="hidden md:table-cell">
       {item.subjects ? item.subjects.map((subject) => subject.name).join(", ") : "None"}
     </td>

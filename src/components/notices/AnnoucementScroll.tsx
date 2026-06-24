@@ -1,9 +1,9 @@
 "use client"
 import { useEffect, useRef, useState } from "react"
 import { FaBell } from "react-icons/fa6"; 
-import DetailsModal from "./DetailsModal";
-import NoticesForm from "./NoticesForm";
-import FormModal from "./FormModal";
+import DetailsModal from "../DetailsModal";
+import NoticesForm from "../forms/NoticesForm";
+import FormModal from "../FormModal";
 
 interface AnnouncementItem {
   id: string | number;
