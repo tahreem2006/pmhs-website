@@ -46,7 +46,7 @@ const renderRow = (item: AnnouncementLists, role: string | undefined,allClasses:
         <h3 className="text-sm text-gray-600">{item.description}</h3>
       </div>
     </td>
-    <td className=" ">{item.class?.name || "General Announcement"}</td>
+    <td className=" ">{item.class?.name || "General Notice"}</td>
     <td className="hidden md:table-cell">
       {new Intl.DateTimeFormat("en-US").format(new Date(item.date))}
     </td>
@@ -69,7 +69,7 @@ const exampage = async ({ searchParams }: { searchParams: { [key: string]: strin
   const { sessionClaims } = await auth();
   const role = (sessionClaims?.metadata as { role?: string })?.role;
  
-  
+   
 
   const { page, ...queryParam } = searchParams;
   const p = page ? parseInt(page) : 1;
@@ -107,7 +107,7 @@ const exampage = async ({ searchParams }: { searchParams: { [key: string]: strin
     <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
       
       <div className="flex items-center justify-between">
-        <h1 className="hidden md:block text-lg font-semibold">All announcements</h1>
+        <h1 className="hidden md:block text-lg font-semibold">All notices</h1>
         <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
           <TableSearch />
           <div className="flex items-center gap-4 self-end">

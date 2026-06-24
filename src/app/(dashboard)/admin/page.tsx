@@ -6,9 +6,8 @@ import FinanceChart from "@/components/FinanceChart";
 import Performancebox from "@/components/Performancebox";
 import EventCalender from "@/components/EventCalender";
  import Maintainence from "@/components/Maintenance";
-import Annoucement from "@/components/AnnoucementBox";
+import NoticesBox from "@/components/NoticesBox";
  
-
 const adminpage = () => {
   return (
     <div className="flex flex-col md:flex-row p-4 gap-4">
@@ -42,7 +41,7 @@ const adminpage = () => {
 
        <div className="w-full flex flex-col gap-6 md:w-2/5">
         
-          <Annoucement/>
+          <NoticesBox/>
         
         <div className="h-[400px] bg-white rounded-2xl p-4 shadow-sm">
         <Maintainence/>

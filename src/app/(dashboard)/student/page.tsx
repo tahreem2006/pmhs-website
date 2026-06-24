@@ -6,7 +6,7 @@ import FinanceChart from "@/components/FinanceChart";
 import Calender from "@/components/BigCalenderContainer";
  import { auth } from "@clerk/nextjs/server";
  import prisma from "@/lib/prisma";
-import  Annoucements from "@/components/AnnoucementBox";
+import  NoticesBox from "@/components/NoticesBox";
 
 
 const studentPage =async () => {
@@ -41,7 +41,7 @@ const classId=studentData.classId;
        
 
       <div className="h-[400px] bg-white rounded-2xl p-4">
-    <Annoucements/>
+    <NoticesBox/>
       </div>
       <div className="h-[400px] bg-white rounded-2xl p-4">
     

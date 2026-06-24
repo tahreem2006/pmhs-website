@@ -3,7 +3,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Calender from "@/components/BigCalenderContainer";
-import Annoncement from "@/components/AnnoucementBox";
+import NoticesBox from "@/components/NoticesBox";
 import PieChart from "@/components/ClassPieChart";
 import FormModal from '@/components/FormModal';
 import { auth } from "@clerk/nextjs/server";
@@ -18,7 +18,7 @@ const page =async() => {
 
             <div className='bg-blue-200 w-full lg:w-2/3 gap-2 flex py-6 px-4 rounded-2xl '>
                 <div className='w-1/3 flex  justify-left  items-center'>
-                <Image className="w-30 h-30 rounded-full object-cover " src="https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg?s=612x612&w=0&k=20&c=dhV2p1JwmloBTOaGAtaA3AW1KSnjsdMt7-U_3EZElZ0=" alt="" width={144} height={144}/>
+                <Image className="w-30 h-30 rounded-full object-cover " src="https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait.jpg?s=612x612&w=0&k=20&c=dhV2p1JwmloBTOaGAtaA3AW1KSnjsdMt7-U_3EZElZ0=" alt="" width={144} height={144}/>
                 </div>
                 
             </div>
@@ -82,7 +82,7 @@ const page =async() => {
 
         <div><PieChart/></div>
       </div>
-      <div className='p-4 bg-white rounded-xl' > <Annoncement/></div>
+      <div className='p-4 bg-white rounded-xl' > <NoticesBox/></div>
       </div>
     </div>
   )
