@@ -1,4 +1,4 @@
-import Usercard from "@/components/dashboard/Usercard";
+import Usercard from "@/components/Usercard";
 import Capacitybox from "@/components/Capacitybox";
  
 import FinanceChart from "@/components/FinanceChart";
@@ -6,9 +6,8 @@ import FinanceChart from "@/components/FinanceChart";
 import Performancebox from "@/components/Performancebox";
 import EventCalender from "@/components/EventCalender";
  import Maintainence from "@/components/Maintenance";
-import Annoucement from "@/components/AnnoucementBox";
+import Annoucement from "@/components/notices/AnnoucementBox";
  
-
 const adminpage = () => {
   return (
     <div className="flex flex-col md:flex-row p-4 gap-4">

@@ -9,7 +9,7 @@ import MissionVision from '@/components/landing/VisionMission';
 import ImportantLinks from '@/components/landing/ImportantLinks';
 import PrincipalMessage from '@/components/landing/PrincipalMessage';
 import PreFooter from '@/components/landing/PreFooter';
-import Annoucement from "@/components/AnnoucementBox";
+import Annoucement from "@/components/notices/AnnoucementBox";
 import RoleRedirect from '@/components/RoleRedirect';
 import Footer from '@/components/landing/Footer';
  
@@ -18,9 +18,7 @@ export default function HomePage() {
 
   
  
-
  
-
    return (
     <div className="flex flex-col items-center">
       <RoleRedirect/>

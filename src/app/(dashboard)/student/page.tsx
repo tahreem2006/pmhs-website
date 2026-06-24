@@ -1,12 +1,12 @@
  
-import Usercard from "@/components/dashboard/Usercard";
+import Usercard from "@/components/Usercard";
 import CountChart from "@/components/CountChart";
  
 import FinanceChart from "@/components/FinanceChart";
 import Calender from "@/components/BigCalenderContainer";
  import { auth } from "@clerk/nextjs/server";
  import prisma from "@/lib/prisma";
-import  Annoucements from "@/components/AnnoucementBox";
+import  Annoucements from "@/components/notices/AnnoucementBox";
 
 
 const studentPage =async () => {

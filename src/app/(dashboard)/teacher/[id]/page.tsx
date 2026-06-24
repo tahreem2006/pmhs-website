@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Calender from "@/components/BigCalenderContainer";
-import Annoncement from "@/components/AnnoucementBox";
+import Annoncement from "@/components/notices/AnnoucementBox";
 import PieChart from "@/components/ClassPieChart";
 import FormModal from '@/components/FormModal';
 import { auth } from "@clerk/nextjs/server";
@@ -69,72 +69,3 @@ const page = async({params}:{params:{id:string}}) => {
             </div>
 
             <div className=' flex flex-1  w-full lg:w-1/3 sm:flex-col  '>
-                <div className='flex flex-1 flex-col gap-2'>
-
-                    <div className='bg-white w-full    flex justify-start gap-2 items-start pt-6 pl-6 pb-6 lg:pb-0 h-full rounded-2xl ' >
-                        <div className=' bg-green-400 p-2 rounded-lg'>
-                                < Image src="/attendance.png" alt="" width={24} height={24}/>
-                            </div>
-
-                            <div>
-                                <h2 className='text-lg font-semibold'>
-                                    {teacher._count.subjects}
-                                </h2>
-                                <h6 className='text-m text-gray-500'>
-                     Subjects 
-
-                                  
-                                </h6>
-                            </div>
-                            
-                             </div>
-                             <div className='bg-white w-full pt-6 flex justify-start gap-2  pl-6 pb-6 lg:pb-0 items-start  h-full rounded-2xl ' >
-                        <div className=' bg-pink-400 p-2 rounded-lg'>
-                                < Image src="/class.png" alt="" width={24} height={24}/>
-                            </div>
-
-                            <div>
-                                <h2 className='text-lg font-semibold'>
-                                {teacher._count.classes}
-                                </h2>
-                                <h6 className='text-m text-gray-500'>
-                               Classes 
-
-                                   
-                                </h6>
-                            </div>
-                            
-                             </div>
-
-                </div>
-                
-
-            </div>
-      </div>
-
-      <div><Calender type="teacherId" id={teacher.id}/></div>
-
-      </div>
-
-
-      <div className='w-full lg:w-1/3 flex flex-col gap-2'>
-      <div className='flex flex-col gap-2 p-6 rounded-xl bg-white'>
-        <h3 className='text-lg text-black font-semibold'>Shortcuts</h3>
-      <div className='flex flex-wrap  gap-4 rounded-xl bg-white '>
-          <Link className="py-2 px-6 bg-pink-200 rounded-xl text-gray-600" href={`/list/classes?supervisorId=${teacher.id}`}>Class</Link> 
-          <Link className="py-2 px-6 bg-purple-200 rounded-xl text-gray-600"  href={`/list/student?teacherId=${teacher.id}`}>Student</Link> 
-          <Link className="py-2 px-6 bg-gray-200 rounded-xl text-gray-600 "  href={`/list/lesson?teacherId=${teacher.id}`}>Lesson</Link> 
-          <Link  className="py-2 px-6 bg-green-200 rounded-xl text-gray-600" href={`/list/exam?teacherId=${teacher.id}`}>Exam</Link> 
-       </div>
-      </div>
-      <div>
-
-        <div><PieChart/></div>
-      </div>
-      <div className='p-4 bg-white rounded-xl' > <Annoncement/></div>
-      </div>
-    </div>
-  )
-}
-
-export default page

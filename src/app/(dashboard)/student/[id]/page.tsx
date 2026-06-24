@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Calender from "@/components/BigCalenderContainer";
-import Annoncement from "@/components/AnnoucementBox";
+import Annoncement from "@/components/notices/AnnoucementBox";
 import PieChart from "@/components/ClassPieChart";
 import { notFound, redirect } from 'next/navigation';
 import { auth } from '@clerk/nextjs/server';
@@ -45,7 +45,7 @@ const studentpage = async ({params}:{params:{id:string}}) => {
                    <div className='flex flex-col items-start justify-start gap-2'>
                     <div className='flex flex-col'>
                     <h3 className='text-bold text-m font-semibold capitalize'>{student.name +" "+ student.surname} </h3>
-                    {role === "admin" && (<FormModal table="student" type="edit" data={student}/>)}
+                    {role === "admin" && (<FormModal table="student" type="edit" data={student}/>) }
                     </div>
                     <span className='text-gray-500 text-xs mb-6'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit ratione sint numquam, illum, porro rerum, delectus perspiciatis magnam earum nam voluptatem et corrupti quisquam reprehenderit nesciunt itaque nulla laborum reiciendis. </span>
                     <div className='flex gap-3'>
@@ -67,70 +67,3 @@ const studentpage = async ({params}:{params:{id:string}}) => {
             </div>
 
             <div className=' flex flex-1  w-full lg:w-1/3 sm:flex-col  '>
-                <div className='flex flex-1 flex-col gap-2'>
-
-                    <div className='bg-white w-full    flex justify-start gap-2 items-start pt-4 pl-6 pb-6 lg:pb-0 h-full rounded-2xl ' >
-                        <div className=' bg-green-400 p-2 rounded-lg'>
-                                < Image src="/attendance.png" alt="" width={24} height={24}/>
-                            </div>
-
-                            <div>
-                                <h2 className='text-lg font-semibold'>
-                                   {student.class.name[0]}
-                                </h2>
-                                <h6 className='text-m text-gray-500'>
-                                    Grade
-                                </h6>
-                            </div>
-                            
-                             </div>
-                             <div className='bg-white w-full pt-4 flex justify-start gap-2  pl-6 pb-6 lg:pb-0 items-start  h-full rounded-2xl ' >
-                        <div className=' bg-pink-400 p-2 rounded-lg'>
-                                < Image src="/class.png" alt="" width={24} height={24}/>
-                            </div>
-
-                            <div>
-                                <h2 className='text-lg font-semibold'>
-                                    {student.class._count.lessons}
-                                </h2>
-                                <h6 className='text-m text-gray-500'>
-                                    Lessons
-                                </h6>
-                            </div>
-                            
-                             </div>
-
-                </div>
-                
-
-            </div>
-      </div>
-
-      <div><Calender type="classId" id={student.classId}/></div>
-
-      </div>
-
-
-      <div className='w-full lg:w-1/3 flex flex-col gap-2'>
-      <div className='flex flex-col gap-2 p-6 rounded-xl bg-white'>
-        <h3 className='text-lg text-black font-semibold'>Shortcuts</h3>
-      <div className='flex flex-wrap  gap-4 rounded-xl bg-white '>
-          <Link className="py-2 px-6 bg-pink-200 rounded-xl text-gray-600" href={`/list/subject?classId=6a086917d4e821b5f3e12e26`}>Subject</Link> 
-          <Link className="py-2 px-6 bg-purple-200 rounded-xl text-gray-600"  href={`/list/teacher?classId=6a086917d4e821b5f3e12e26`}>Teacher</Link> 
-          <Link  className="py-2 px-6 bg-green-200 rounded-xl text-gray-600" href={`/list/exam?classId=6a086917d4e821b5f3e12e26`}>Exam</Link> 
-          <Link className="py-2 px-6 bg-blue-200 rounded-xl  text-gray-600"  href={`/list/lesson?classId=6a086917d4e821b5f3e12e26`}>Lesson</Link> 
-          <Link className="py-2 px-6 bg-lime-200 rounded-xl  text-gray-600"  href={`/list/result?studentId=6a086918d4e821b5f3e12e2c`}>Result</Link> 
-
-      </div>
-      </div>
-      <div>
-
-        <div><PieChart/></div>
-      </div>
-      <div className='p-4 bg-white rounded-xl' > <Annoncement/></div>
-      </div>
-    </div>
-  )
-}
-
-export default studentpage
