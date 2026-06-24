@@ -34,7 +34,8 @@ const classId=studentData.classId;
        <div className="w-full h-[600px] bg-pink-100 rounded-xl   p-2">
        <Calender type="classId" id={classId}/>
        </div>
-      </div>¯
+      </div>
+
 
 
       <div className="w-full flex flex-col gap-4  md:w-1/3" >

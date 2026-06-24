@@ -1,4 +1,4 @@
-import { table } from "console"
+import React from 'react'
 import Image from "next/image"
 import Link from "next/link"
 import { role } from "@/lib/data"
@@ -28,5 +28,3 @@ data:any[]}
 }
 
 export default Table
-
-
